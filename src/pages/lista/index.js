@@ -1,25 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import { View, StatusBar } from 'react-native';
 
 import styles from './styles';
 
-const Lista = () => (
-  <View>
-    <StatusBar barStyle="light-content" />
-  </View>
-);
+export default class Lista extends Component {
+  static navigationOptions = {
+    title: 'Lista',
+  };
 
-Lista.navigationOptions = {
-  title: 'GitIssues',
-  headerStyle: {
-    backgroundColor: styles.black,
-  },
-  headerTintColor: styles.darker,
-  headerTitleStyle: {
-    flex: 1,
-    textAlign: 'center',
-  },
-};
-
-export default Lista;
+  render() {
+    return (
+      <View>
+        <StatusBar barStyle="light-content" />
+      </View>
+    )
+  }
+}

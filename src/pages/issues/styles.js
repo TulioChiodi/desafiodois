@@ -2,32 +2,29 @@ import { StyleSheet } from 'react-native';
 import { colors, metrics } from 'styles';
 
 const Styles = StyleSheet.create({
-  container:{
+  container: {
     flex: 1,
     backgroundColor: colors.lighter,
-    padding: metrics.basePadding * 2,
-    justifyContent: 'center',
+    padding: metrics.basePadding,
     alignItems: 'stretch',
   },
 
   form: {
-    marginTop: metrics.baseMargin * 2,
+    flexDirection: 'row',
   },
 
-  input:{
+  input: {
+    flex: 1,
     backgroundColor: colors.white,
     borderRadius: metrics.baseRadius,
-    height: 44,
+    height: 40,
     paddingHorizontal: metrics.basePadding,
   },
 
-  button: {
-    backgroundColor: colors.lighter,
-    borderRadius: metrics.baseRadius,
-    height: 44,
-    marginTop: metrics.baseMargin,
-    justifyContent: 'center',
+  icons: {
+    paddingLeft: metrics.basePadding,
     alignItems: 'center',
+    justifyContent: 'center',
   },
 
 });

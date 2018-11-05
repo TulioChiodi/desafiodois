@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 
 import {
   View,
-  Text,
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './styles';
 
@@ -33,8 +34,8 @@ export default class Issues extends Component {
               underlineColorAndroid="rgba(0, 0, 0, 0)"
             />
 
-            <TouchableOpacity style={styles.button} onPress={() => {}}>
-              <Text style={styles.buttonText}>Add</Text>
+            <TouchableOpacity style={styles.icons} onPress={() => {}}>
+              <Icon name="plus" size={20} color={'#000'} />
             </TouchableOpacity>
           </View>
         </View>

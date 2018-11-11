@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import api from 'services/api';
 
 import {
   View,
@@ -22,6 +23,24 @@ export default class Issues extends Component {
         textAlign: 'center',
       },
     };
+
+    state = {
+      reponame: '',
+    }
+
+    checkRepoExists = (reponame) => {
+      const repo = await api.get('')
+
+    }
+
+    search = () => {
+      const { reponame } = this.state;
+
+      if (reponame.length === 0) return;
+
+
+    }
+
     render() {
       return (
         <View style={styles.container}>
@@ -32,10 +51,12 @@ export default class Issues extends Component {
               autoCorrect={false}
               placeholder="Adicionar novo repositório"
               underlineColorAndroid="rgba(0, 0, 0, 0)"
+              value={this.state.reponame}
+              onChangeText={reponame => this.setState({ reponame })}
             />
 
             <TouchableOpacity style={styles.icons} onPress={() => {}}>
-              <Icon name="plus" size={20} color={'#000'} />
+              <Icon name="plus" size={16} color={'#333333'} />
             </TouchableOpacity>
           </View>
         </View>

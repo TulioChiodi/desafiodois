@@ -28,16 +28,23 @@ export default class Issues extends Component {
       reponame: '',
     }
 
-    checkRepoExists = (reponame) => {
-      const repo = await api.get('')
+    checkRepoExists = async (reponame) => {
+      const repo = await api.get(`/repos/${reponame}`);
 
+      return repo;
     }
 
-    search = () => {
+    search = async () => {
       const { reponame } = this.state;
 
       if (reponame.length === 0) return;
 
+      try {
+        await this.checkRepoExists(reponame);
+
+      } catch (err) {
+
+      }
 
     }
 
@@ -55,7 +62,7 @@ export default class Issues extends Component {
               onChangeText={reponame => this.setState({ reponame })}
             />
 
-            <TouchableOpacity style={styles.icons} onPress={() => {}}>
+            <TouchableOpacity style={styles.icons} onPress={this.search}>
               <Icon name="plus" size={16} color={'#333333'} />
             </TouchableOpacity>
           </View>

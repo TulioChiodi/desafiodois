@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  AsyncStorage,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -26,6 +27,8 @@ export default class Issues extends Component {
 
     state = {
       reponame: '',
+      loading: false,
+      errorMessage: null,
     }
 
     checkRepoExists = async (reponame) => {

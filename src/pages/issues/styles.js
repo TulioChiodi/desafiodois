@@ -9,6 +9,10 @@ const Styles = StyleSheet.create({
     alignItems: 'stretch',
   },
 
+  loading: {
+    marginTop: metrics.basePadding,
+  },
+
   form: {
     flexDirection: 'row',
   },

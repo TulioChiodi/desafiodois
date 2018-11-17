@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   AsyncStorage,
   ActivityIndicator,
+  FlatList,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -27,9 +28,14 @@ export default class Issues extends Component {
     };
 
     state = {
+      data: [],
       reponame: '',
-      loading: false,
+      loading: true,
       errorMessage: null,
+    }
+
+    componentDidMount() {
+      this.loadRepositories();
     }
 
     checkRepoExists = async (reponame) => {
@@ -38,13 +44,16 @@ export default class Issues extends Component {
       return repo;
     }
 
-    //loadRepositories = async () => {
-    //  const reponame
-    //}
+    loadRepositories = async () => {
+      const reponame = await AsyncStorage.getItem('@Issues:reponame');
+      const response = await api.get(`/repos/${reponame}`);
 
-    //saveData = async (reponame) => {
-    //  await AsyncStorage.setItem('@Issues:reponame', reponame);
-    //}
+      this.setState({ data: response.data, loading: false });
+    }
+
+    saveData = async (reponame) => {
+      await AsyncStorage.setItem('@Issues:reponame', reponame);
+    }
 
     search = async () => {
       const { reponame } = this.state;
@@ -54,13 +63,25 @@ export default class Issues extends Component {
       try {
         await this.checkRepoExists(reponame);
 
-        //await this.saveData(reponame);
+        await this.saveData(reponame);
 
       } catch (err) {
         this.setState({ loading: false, errorMessage:"repo não existe" })
       }
 
     }
+
+    renderListItem = ({ item }) => {
+    //  console.tron.log(item.full_name);
+    }
+
+    renderList = () => (
+      <FlatList
+        data={this.state.data}
+        keyExtractor={item => String(item.id)}
+        renderItem={this.renderListItem}
+      />
+    );
 
     render() {
       return (
@@ -80,6 +101,9 @@ export default class Issues extends Component {
               <Icon name="plus" size={16} color={'#333333'} />
             </TouchableOpacity>
           </View>
+          { this.state.loading
+            ? <ActivityIndicator style={styles.loading}/>
+            : this.renderList() }
         </View>
       );
     }

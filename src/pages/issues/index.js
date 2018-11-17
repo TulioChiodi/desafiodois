@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   AsyncStorage,
+  ActivityIndicator,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -37,6 +38,14 @@ export default class Issues extends Component {
       return repo;
     }
 
+    //loadRepositories = async () => {
+    //  const reponame
+    //}
+
+    //saveData = async (reponame) => {
+    //  await AsyncStorage.setItem('@Issues:reponame', reponame);
+    //}
+
     search = async () => {
       const { reponame } = this.state;
 
@@ -45,8 +54,10 @@ export default class Issues extends Component {
       try {
         await this.checkRepoExists(reponame);
 
-      } catch (err) {
+        //await this.saveData(reponame);
 
+      } catch (err) {
+        this.setState({ loading: false, errorMessage:"repo não existe" })
       }
 
     }

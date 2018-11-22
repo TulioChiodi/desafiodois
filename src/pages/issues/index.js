@@ -8,6 +8,7 @@ import {
   AsyncStorage,
   ActivityIndicator,
   FlatList,
+  Text,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -34,7 +35,7 @@ export default class Issues extends Component {
       errorMessage: null,
     }
 
-    componentDidMount() {
+    componentWillMount() {
       this.loadRepositories();
     }
 
@@ -45,14 +46,23 @@ export default class Issues extends Component {
     }
 
     loadRepositories = async () => {
-      const reponame = await AsyncStorage.getItem('@Issues:reponame');
-      const response = await api.get(`/repos/${reponame}`);
-
-      this.setState({ data: response.data, loading: false });
+      // const reponame = await AsyncStorage.getItem('@Issues:reponame');
+      // const response = await api.get(`/repos/${reponame}`);
+      // const dataCopy = [...this.state.data];
+      // dataCopy.push(response.data);
+      // console.tron.log(dataCopy);
+      // this.setState({ data: dataCopy, loading: false });
+      this.setState({ loading: false });
     }
 
     saveData = async (reponame) => {
+      this.setState({ loading: true });
       await AsyncStorage.setItem('@Issues:reponame', reponame);
+      const response = await api.get(`/repos/${reponame}`);
+      const dataCopy = [...this.state.data];
+      dataCopy.push(response.data);
+      console.tron.log(dataCopy);
+      this.setState({ data: dataCopy, loading: false });
     }
 
     search = async () => {
@@ -66,21 +76,26 @@ export default class Issues extends Component {
         await this.saveData(reponame);
 
       } catch (err) {
-        this.setState({ loading: false, errorMessage:"repo não existe" })
+        this.setState({ loading: false, errorMessage:"repo não existe" });
       }
 
     }
 
-    renderListItem = ({ item }) => {
-    //  console.tron.log(item.full_name);
-    }
+    renderListItem = ({ item }) => (
+      <Text>{item.name}</Text>
+    )
+      //console.tron.log(item.full_name);
 
     renderList = () => (
-      <FlatList
-        data={this.state.data}
-        keyExtractor={item => String(item.id)}
-        renderItem={this.renderListItem}
-      />
+      this.state.data.length !== 0
+        ? (
+          <FlatList
+            data={this.state.data}
+            keyExtractor={item => String(item.id)}
+            renderItem={this.renderListItem}
+          />
+        )
+        : (<Text>Não existem repositórios carregados</Text>)
     );
 
     render() {
@@ -102,7 +117,7 @@ export default class Issues extends Component {
             </TouchableOpacity>
           </View>
           { this.state.loading
-            ? <ActivityIndicator style={styles.loading}/>
+            ? <ActivityIndicator style={styles.loading} />
             : this.renderList() }
         </View>
       );

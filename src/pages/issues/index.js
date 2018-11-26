@@ -46,6 +46,8 @@ export default class Issues extends Component {
     }
 
     loadRepositories = async () => {
+      this.setState({ loading: true });
+      this.renderList();
       // const reponame = await AsyncStorage.getItem('@Issues:reponame');
       // const response = await api.get(`/repos/${reponame}`);
       // const dataCopy = [...this.state.data];

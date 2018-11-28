@@ -11,6 +11,8 @@ import {
   Text,
 } from 'react-native';
 
+import RepositoryItem from './components/RepositoryItem';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import styles from './styles';
@@ -46,8 +48,6 @@ export default class Issues extends Component {
     }
 
     loadRepositories = async () => {
-      this.setState({ loading: true });
-      this.renderList();
       // const reponame = await AsyncStorage.getItem('@Issues:reponame');
       // const response = await api.get(`/repos/${reponame}`);
       // const dataCopy = [...this.state.data];
@@ -84,7 +84,7 @@ export default class Issues extends Component {
     }
 
     renderListItem = ({ item }) => (
-      <Text>{item.name}</Text>
+      <RepositoryItem repository={item} />
     )
       //console.tron.log(item.full_name);
 

@@ -59,7 +59,7 @@ export default class Issues extends Component {
 
     saveData = async (reponame) => {
       this.setState({ loading: true });
-      await AsyncStorage.setItem('@Issues:reponame', reponame);
+      // await AsyncStorage.setItem('@Issues:reponame', reponame);
       const response = await api.get(`/repos/${reponame}`);
       const dataCopy = [...this.state.data];
       dataCopy.push(response.data);
@@ -72,13 +72,15 @@ export default class Issues extends Component {
 
       if (reponame.length === 0) return;
 
+      this.setState({ loading: true });
+
       try {
         await this.checkRepoExists(reponame);
 
         await this.saveData(reponame);
 
       } catch (err) {
-        this.setState({ loading: false, errorMessage:"repo não existe" });
+        this.setState({ loading: false, errorMessage:"Este repositório não existe" });
       }
 
     }
@@ -118,6 +120,9 @@ export default class Issues extends Component {
               <Icon name="plus" size={16} color={'#333333'} />
             </TouchableOpacity>
           </View>
+          { !!this.state.errorMessage
+            && <Text style={styles.error}>{this.state.errorMessage}</Text>
+          }
           { this.state.loading
             ? <ActivityIndicator style={styles.loading} />
             : this.renderList() }

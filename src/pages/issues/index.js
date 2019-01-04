@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import api from 'services/api';
+import { colors } from 'styles';
 
 import {
   View,
@@ -117,9 +118,10 @@ export default class Issues extends Component {
             />
 
             <TouchableOpacity style={styles.icons} onPress={this.search}>
-              <Icon name="plus" size={16} color={'#333333'} />
+              <Icon name="plus" size={19.3} color={colors.black} />
             </TouchableOpacity>
           </View>
+          <View style={styles.lineStyle} />
           { !!this.state.errorMessage
             && <Text style={styles.error}>{this.state.errorMessage}</Text>
           }

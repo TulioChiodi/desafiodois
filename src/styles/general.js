@@ -5,6 +5,6 @@ export default {
   box: {
     backgroundColor: colors.white,
     borderRadius: metrics.baseRadius,
-    padding: metrics.basePadding,
+    padding: metrics.basePadding / 2,
   },
 };

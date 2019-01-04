@@ -17,16 +17,23 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
+  lineStyle: {
+    borderWidth: 0.2,
+    borderColor: colors.dark,
+    marginTop: metrics.basePadding,
+    marginBottom: metrics.basePadding,
+  },
+
   input: {
     flex: 1,
     backgroundColor: colors.white,
     borderRadius: metrics.baseRadius,
     height: 40,
-    paddingHorizontal: metrics.basePadding,
+    paddingLeft: metrics.basePadding,
   },
 
   icons: {
-    paddingLeft: metrics.basePadding,
+    marginLeft: metrics.basePadding,
     alignItems: 'center',
     justifyContent: 'center',
   },

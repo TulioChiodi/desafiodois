@@ -1,32 +1,40 @@
 import { StyleSheet } from 'react-native';
 import { general, metrics, colors } from 'styles';
 
-
 const styles = StyleSheet.create({
-    container: {
-        ...general.box,
-        marginHorizontal: metrics.basePadding/4,
-        marginTop: metrics.baseMargin,
-    },
+  container: {
+    ...general.box,
+    flexDirection: 'row',
+    marginBottom: metrics.baseMargin,
+  },
 
-    repoTitle: {
-        fontWeight: 'bold',
-        fontSize: 16,
-    },
+  Avatar: {
+   // marginHorizontal: metrics.basePadding,
+   // marginTop: metrics.baseMargin,
+    margin: metrics.baseMargin,
+  },
 
-    infoContainer: {
-        flexDirection: 'row',
-        marginTop: metrics.baseMargin,
-    },
+  repoTitle: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
 
-    info:{
-        marginRight: metrics.baseMargin,
-        alignItems: 'center',
-    },
+  infoContainer: {
+    flexDirection: 'column',
+    marginTop: metrics.baseMargin,
+  },
+
+  // info: {
+  //   marginRight: metrics.baseMargin,
+  //   alignItems: 'center',
+  // },
+
+  avatar: {
+    width: 50,
+    height: 50,
+  },
 
 });
-
-
 
 
 export default styles;

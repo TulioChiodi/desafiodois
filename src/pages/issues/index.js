@@ -42,30 +42,42 @@ export default class Issues extends Component {
       this.loadRepositories();
     }
 
-    checkRepoExists = async (reponame) => {
-      const repo = await api.get(`/repos/${reponame}`);
+    // checkRepoExists = async (reponame) => {
+    //   const repo = await api.get(`/repos/${reponame}`);
 
-      return repo;
-    }
+    //   return repo;
+    // }
 
     loadRepositories = async () => {
+      this.setState({ loading: true });
       // const reponame = await AsyncStorage.getItem('@Issues:reponame');
       // const response = await api.get(`/repos/${reponame}`);
       // const dataCopy = [...this.state.data];
       // dataCopy.push(response.data);
       // console.tron.log(dataCopy);
       // this.setState({ data: dataCopy, loading: false });
-      this.setState({ loading: false });
+      const repo = await AsyncStorage.getItem('@Issues:reponame');
+      this.setState({ data: JSON.parse(repo), loading: false });
     }
 
     saveData = async (reponame) => {
       this.setState({ loading: true });
-      // await AsyncStorage.setItem('@Issues:reponame', reponame);
-      const response = await api.get(`/repos/${reponame}`);
-      const dataCopy = [...this.state.data];
-      dataCopy.push(response.data);
-      console.tron.log(dataCopy);
-      this.setState({ data: dataCopy, loading: false });
+      const name = reponame;
+      let jaExiste = false;
+      reponame.forEach((repo) => {
+        if (repo.name === repository.name) {
+          jaExiste = true;
+        }
+      });
+      if (!jaExiste) {
+        const response = await api.get(`/repos/${reponame}`);
+        const dataCopy = [...this.state.data];
+        console.tron.log(reponame);
+        dataCopy.push(response.data);
+        console.tron.log(dataCopy);
+        await AsyncStorage.setItem('@Issues:reponame', JSON.stringify(dataCopy));
+        this.setState({ data: dataCopy, loading: false });
+      }
     }
 
     search = async () => {
@@ -76,7 +88,7 @@ export default class Issues extends Component {
       this.setState({ loading: true });
 
       try {
-        await this.checkRepoExists(reponame);
+        //await this.checkRepoExists(reponame);
 
         await this.saveData(reponame);
 
